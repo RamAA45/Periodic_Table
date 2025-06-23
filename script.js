@@ -89,7 +89,7 @@ const fillMap = {
 
   /* lavender */
   Sc:'#D8A9D1', Ti:'#D8A9D1', Y :'#D8A9D1', Zr:'#D8A9D1',
-  Lu:'#D8A9D1', Hf:'#D8A9D1', Co:'#D8A9D1', Tc:'#D8A9D1',
+  Hf:'#D8A9D1', Co:'#D8A9D1', Tc:'#D8A9D1',
   Ru:'#D8A9D1', Re:'#D8A9D1', Os:'#D8A9D1', Zn:'#D8A9D1',
   Cd:'#D8A9D1',
 
