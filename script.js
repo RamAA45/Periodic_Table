@@ -87,7 +87,7 @@ const fillMap = {
                     Ag:'#ffc8b0', Ir:'#ffc8b0', Pt:'#ffc8b0', Au:'#ffc8b0',
   /* lavender  */  Sc:'#D8A9D1', Ti:'#D8A9D1', Y :'#D8A9D1', Zr:'#D8A9D1',
                      Hf:'#D8A9D1', Co:'#D8A9D1', Tc:'#D8A9D1',
-                    Ru:'#D8A9D1', Re:'#D8A9D1', Os:'#D8A9D1', Zn:'#D8A9D1', Cu:'#D8A9D1', 
+                    Ru:'#D8A9D1', Re:'#D8A9D1', Os:'#D8A9D1', Zn:'#D8A9D1', Cd:'#D8A9D1', 
   /* mint      */  V :'#ccffcc', Cr:'#ccffcc', Mn:'#ccffcc', Fe:'#ccffcc',
                     Nb:'#ccffcc', Mo:'#ccffcc', Ta:'#ccffcc', W :'#ccffcc'
 };
