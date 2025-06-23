@@ -1,154 +1,184 @@
-/* ------------------------------------------------------------------
-   Global resets & variables
-   ------------------------------------------------------------------ */
-:root {
-  --accent: #007acc;      /* blue for transition metals                     */
-  --bg:     #f9f9f9;      /* light page background                          */
-  --fg:     #222;         /* main text colour                               */
-  --grid-gap: 4px;
+/* ──────────────────────────────────────────────
+   DARK-MODE PALETTE & RESETS
+   ────────────────────────────────────────────── */
+:root{
+  --accent:#51C8FF;          /* neon sky-blue */
+  --bg-1:#0D1323;            /* deep navy */
+  --bg-2:#1A2134;            /* slate-blue */
+  --blob-1:#5936FF;          /* softly animated nebula colours */
+  --blob-2:#9B00FA;
+  --blob-3:#0080FF;
+  --card:#1E273D;            /* glass card background */
+  --border:#334266;
+  --text:#E9EFFB;
+  --soft:#9AA3C8;
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Poppins',system-ui,Arial,sans-serif;
+  background:linear-gradient(160deg,var(--bg-1) 0%,var(--bg-2) 100%);
+  color:var(--text);
+  display:flex;flex-direction:column;align-items:center;
+  overflow-x:hidden;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* ── MOVING BACKGROUND BLOBS ────────────────── */
+body::before,body::after{
+  content:"";
+  position:fixed;
+  width:600px;height:600px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.25;
+  pointer-events:none;
+  animation:float 22s linear infinite;
+}
+body::before{
+  background:radial-gradient(circle at 30% 30%,var(--blob-1),transparent 60%);
+  top:-150px;left:-200px;
+}
+body::after{
+  background:radial-gradient(circle at 70% 70%,var(--blob-3),transparent 60%);
+  bottom:-180px;right:-240px;
+  animation-direction:reverse;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%     {transform:translateY(60px) scale(1.05)}
 }
 
-body {
-  background: var(--bg);
-  color: var(--fg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+/* ── HERO ───────────────────────────────────── */
+.hero{
+  padding:2.2rem 1rem 1.6rem;text-align:center;position:relative;
+}
+.hero h1{
+  font-size:clamp(1.9rem,5vw,2.8rem);
+  font-weight:700;
+  color:var(--text);
+  display:inline-block;
+}
+.hero h1::after{                     /* animated underline */
+  content:"";
+  display:block;
+  height:3px;width:100%;
+  background:linear-gradient(90deg,transparent, var(--accent), transparent);
+  margin-top:.3rem;
+  animation:shine 3.5s linear infinite;
+}
+@keyframes shine{
+  0%  {background-position:-200%}
+  100%{background-position:200%}
+}
+.sub{
+  font-size:.95rem;line-height:1.5;color:var(--soft);
+  margin-top:.5rem;
+}
+.transition-swatch{
+  display:inline-block;width:1.05em;height:1.05em;margin-right:.25em;
+  vertical-align:-0.25em;
+  background:var(--accent);
+  border-radius:4px;
+  box-shadow:0 0 6px var(--accent);
 }
 
-/* ------------------------------------------------------------------
-   Header
-   ------------------------------------------------------------------ */
-header {
-  padding: 1.5rem 1rem 1rem;
-  text-align: center;
-}
-h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 700; letter-spacing: .02em; }
-.sub { margin-top: .25rem; font-size: .9rem; opacity: .75; }
-
-/* tiny coloured square shown in legend sentence */
-.legend.transition-swatch {
-  display: inline-block;
-  width: .9em;
-  height: .9em;
-  vertical-align: -.15em;
-  background: var(--accent);
-  border-radius: 2px;
+/* ── WRAPPER ─────────────────────────────────── */
+.wrapper{
+  width:100%;max-width:1100px;padding:0 1rem 4rem;
+  display:flex;justify-content:center;
+  position:relative;z-index:2;   /* stay above blobs */
 }
 
-/* ------------------------------------------------------------------
-   Periodic table grid
-   ------------------------------------------------------------------ */
-.periodic-table {
-  width: 100%;
-  max-width: 1100px;
-  display: grid;
-  grid-template-columns: repeat(18, minmax(55px, 1fr));
-  gap: var(--grid-gap);
-  margin-bottom: 2.5rem;
+/* ── PERIODIC TABLE GRID ─────────────────────── */
+.periodic-table{
+  background:rgba(30,39,61,.55);        /* glassmorphism */
+  backdrop-filter:blur(18px) saturate(160%);
+  border-radius:var(--radius);
+  box-shadow:0 12px 46px rgba(0,0,0,.55),
+             inset 0 1px 1px rgba(255,255,255,.05);
+  padding:1.4rem;
+  display:grid;
+  grid-template-columns:repeat(18,minmax(55px,1fr));
+  gap:6px;
+  border:1px solid rgba(255,255,255,.05);
+}
+.cell{
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border);
+  border-radius:8px;
+  aspect-ratio:1/1;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:500;
+  color:var(--text);user-select:none;
+  transition:.25s transform,.25s box-shadow,.25s background;
+}
+.cell[data-title]:hover:after{
+  content:attr(data-title);
+  position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  padding:.32em .7em;border-radius:4px;font-size:.7rem;
+  background:var(--text);color:#0D1323;
+  white-space:nowrap;opacity:.95;
+}
+/* interactive d-block tiles */
+.transition{
+  cursor:pointer;background:var(--accent);color:#0D1323;font-weight:600;
+  box-shadow:0 0 10px transparent;
+}
+.transition:hover{
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 0 14px var(--accent),0 0 28px rgba(81,200,255,.45);
 }
 
-.cell {
-  border: 1px solid #ddd;
-  background: #fff;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .9rem;
-  user-select: none;
+/* ── MODAL ───────────────────────────────────── */
+dialog{
+  border:none;border-radius:var(--radius);
+  background:var(--card);
+  padding:1.9rem 2.6rem 2.3rem;
+  box-shadow:0 22px 70px rgba(0,0,0,.78);
+  text-align:center;color:var(--text);
+}
+.crystal-options{
+  display:flex;gap:1.1rem;justify-content:center;margin-top:1.3rem;
+}
+.crystal-options button{
+  padding:.68rem 1.55rem;font-weight:600;
+  background:var(--accent);color:#0D1323;border:none;border-radius:8px;
+  cursor:pointer;transition:.25s transform, .25s box-shadow;
+  box-shadow:0 0 0 var(--accent);
+}
+.crystal-options button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 14px var(--accent),0 0 28px rgba(81,200,255,.4);
+}
+.close-btn{
+  position:absolute;top:.45rem;right:.6rem;font-size:1.5rem;
+  background:none;border:none;color:var(--soft);cursor:pointer;
 }
 
-/* interactive d-block */
-.transition {
-  cursor: pointer;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
-  transition: transform .15s;
+/* ── PLOT VIEWER ─────────────────────────────── */
+.hidden{display:none}
+.plots{
+  width:100%;max-width:1000px;margin-bottom:4rem;text-align:center;
 }
-.transition:hover { transform: scale(1.06); }
-
-/* ------------------------------------------------------------------
-   Crystal-structure modal
-   ------------------------------------------------------------------ */
-dialog {
-  border: none;
-  border-radius: 8px;
-  padding: 1.6rem 2.2rem 2rem;
-  box-shadow: 0 14px 36px rgba(0,0,0,.25);
-  max-width: 360px;
-  text-align: center;
+.plots h2{
+  font-size:1.55rem;font-weight:600;margin-bottom:1.4rem;color:var(--text);
 }
-
-.crystal-options {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1rem;
+.plots-grid{
+  display:grid;gap:1.3rem;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+}
+.plot-card{display:flex;flex-direction:column;align-items:center}
+.plot-card img{
+  width:100%;border-radius:8px;border:2px solid var(--border);
+  background:#0D1323;box-shadow:0 4px 20px rgba(0,0,0,.6);
+}
+.plot-card figcaption{
+  margin-top:.55rem;font-size:.83rem;color:var(--soft);
 }
 
-.crystal-options button {
-  padding: .6rem 1.3rem;
-  border: none;
-  border-radius: 6px;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.close-btn {
-  position: absolute;
-  right: .5rem;
-  top: .3rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--fg);
-}
-
-/* ------------------------------------------------------------------
-   Plot viewer
-   ------------------------------------------------------------------ */
-.hidden { display: none; }
-
-.plots {
-  width: 100%;
-  max-width: 1000px;
-  margin-bottom: 3.5rem;
-  text-align: center;
-}
-
-.plots-grid {
-  margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.2rem;
-}
-
-.plots-grid img {
-  width: 100%;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  object-fit: contain;
-}
-
-/* ------------------------------------------------------------------
-   Mobile tweaks
-   ------------------------------------------------------------------ */
-@media (max-width: 600px) {
-  .periodic-table {
-    grid-template-columns: repeat(9, 1fr);
-  }
+/* ── RESPONSIVE ──────────────────────────────── */
+@media(max-width:650px){
+  .periodic-table{grid-template-columns:repeat(9,1fr)}
 }

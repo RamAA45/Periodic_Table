@@ -1,146 +1,151 @@
-/* ------------------------------------------------------------------
-   1.  All 118 elements + lanthanides / actinides
-   ------------------------------------------------------------------ */
-const elements = [
-  /* Period 1 */ {sym:'H', grp:1,  per:1},  {sym:'He',grp:18, per:1},
+/* ──────────────────────────────────────────────
+   1.  Data  (118 symbols + atomic number + name)
+   ────────────────────────────────────────────── */
+const elements=[
+  /* period, group, Z, symbol, name */
+  [1,1,1,'H','Hydrogen'],      [1,18,2,'He','Helium'],
 
-  /* Period 2 */ {sym:'Li',grp:1,  per:2},  {sym:'Be',grp:2,  per:2},
-                 {sym:'B', grp:13, per:2},  {sym:'C', grp:14, per:2},
-                 {sym:'N', grp:15, per:2},  {sym:'O', grp:16, per:2},
-                 {sym:'F', grp:17, per:2},  {sym:'Ne',grp:18, per:2},
+  [2,1,3,'Li','Lithium'],      [2,2,4,'Be','Beryllium'],
+  [2,13,5,'B','Boron'],        [2,14,6,'C','Carbon'],
+  [2,15,7,'N','Nitrogen'],     [2,16,8,'O','Oxygen'],
+  [2,17,9,'F','Fluorine'],     [2,18,10,'Ne','Neon'],
 
-  /* Period 3 */ {sym:'Na',grp:1,  per:3},  {sym:'Mg',grp:2,  per:3},
-                 {sym:'Al',grp:13, per:3},  {sym:'Si',grp:14, per:3},
-                 {sym:'P', grp:15, per:3},  {sym:'S', grp:16, per:3},
-                 {sym:'Cl',grp:17, per:3},  {sym:'Ar',grp:18, per:3},
+  [3,1,11,'Na','Sodium'],      [3,2,12,'Mg','Magnesium'],
+  [3,13,13,'Al','Aluminium'],  [3,14,14,'Si','Silicon'],
+  [3,15,15,'P','Phosphorus'],  [3,16,16,'S','Sulfur'],
+  [3,17,17,'Cl','Chlorine'],   [3,18,18,'Ar','Argon'],
 
-  /* Period 4 */ {sym:'K', grp:1,  per:4},  {sym:'Ca',grp:2,  per:4},
-                 {sym:'Sc',grp:3,  per:4},  {sym:'Ti',grp:4,  per:4},
-                 {sym:'V', grp:5,  per:4},  {sym:'Cr',grp:6,  per:4},
-                 {sym:'Mn',grp:7,  per:4},  {sym:'Fe',grp:8,  per:4},
-                 {sym:'Co',grp:9,  per:4},  {sym:'Ni',grp:10, per:4},
-                 {sym:'Cu',grp:11, per:4},  {sym:'Zn',grp:12, per:4},
-                 {sym:'Ga',grp:13, per:4},  {sym:'Ge',grp:14, per:4},
-                 {sym:'As',grp:15, per:4},  {sym:'Se',grp:16, per:4},
-                 {sym:'Br',grp:17, per:4},  {sym:'Kr',grp:18, per:4},
+  [4,1,19,'K','Potassium'],    [4,2,20,'Ca','Calcium'],
+  [4,3,21,'Sc','Scandium'],    [4,4,22,'Ti','Titanium'],
+  [4,5,23,'V','Vanadium'],     [4,6,24,'Cr','Chromium'],
+  [4,7,25,'Mn','Manganese'],   [4,8,26,'Fe','Iron'],
+  [4,9,27,'Co','Cobalt'],      [4,10,28,'Ni','Nickel'],
+  [4,11,29,'Cu','Copper'],     [4,12,30,'Zn','Zinc'],
+  [4,13,31,'Ga','Gallium'],    [4,14,32,'Ge','Germanium'],
+  [4,15,33,'As','Arsenic'],    [4,16,34,'Se','Selenium'],
+  [4,17,35,'Br','Bromine'],    [4,18,36,'Kr','Krypton'],
 
-  /* Period 5 */ {sym:'Rb',grp:1,  per:5},  {sym:'Sr',grp:2,  per:5},
-                 {sym:'Y', grp:3,  per:5},  {sym:'Zr',grp:4,  per:5},
-                 {sym:'Nb',grp:5,  per:5},  {sym:'Mo',grp:6,  per:5},
-                 {sym:'Tc',grp:7,  per:5},  {sym:'Ru',grp:8,  per:5},
-                 {sym:'Rh',grp:9,  per:5},  {sym:'Pd',grp:10, per:5},
-                 {sym:'Ag',grp:11, per:5},  {sym:'Cd',grp:12, per:5},
-                 {sym:'In',grp:13, per:5},  {sym:'Sn',grp:14, per:5},
-                 {sym:'Sb',grp:15, per:5},  {sym:'Te',grp:16, per:5},
-                 {sym:'I', grp:17, per:5},  {sym:'Xe',grp:18, per:5},
+  [5,1,37,'Rb','Rubidium'],    [5,2,38,'Sr','Strontium'],
+  [5,3,39,'Y','Yttrium'],      [5,4,40,'Zr','Zirconium'],
+  [5,5,41,'Nb','Niobium'],     [5,6,42,'Mo','Molybdenum'],
+  [5,7,43,'Tc','Technetium'],  [5,8,44,'Ru','Ruthenium'],
+  [5,9,45,'Rh','Rhodium'],     [5,10,46,'Pd','Palladium'],
+  [5,11,47,'Ag','Silver'],     [5,12,48,'Cd','Cadmium'],
+  [5,13,49,'In','Indium'],     [5,14,50,'Sn','Tin'],
+  [5,15,51,'Sb','Antimony'],   [5,16,52,'Te','Tellurium'],
+  [5,17,53,'I','Iodine'],      [5,18,54,'Xe','Xenon'],
 
-  /* Period 6 */ {sym:'Cs',grp:1,  per:6},  {sym:'Ba',grp:2,  per:6},
-                 {sym:'La',grp:3,  per:6},  {sym:'Hf',grp:4,  per:6},
-                 {sym:'Ta',grp:5,  per:6},  {sym:'W', grp:6,  per:6},
-                 {sym:'Re',grp:7,  per:6},  {sym:'Os',grp:8,  per:6},
-                 {sym:'Ir',grp:9,  per:6},  {sym:'Pt',grp:10, per:6},
-                 {sym:'Au',grp:11, per:6},  {sym:'Hg',grp:12, per:6},
-                 {sym:'Tl',grp:13, per:6},  {sym:'Pb',grp:14, per:6},
-                 {sym:'Bi',grp:15, per:6},  {sym:'Po',grp:16, per:6},
-                 {sym:'At',grp:17, per:6},  {sym:'Rn',grp:18, per:6},
+  [6,1,55,'Cs','Caesium'],     [6,2,56,'Ba','Barium'],
+  [6,3,57,'La','Lanthanum'],   [6,4,72,'Hf','Hafnium'],
+  [6,5,73,'Ta','Tantalum'],    [6,6,74,'W','Tungsten'],
+  [6,7,75,'Re','Rhenium'],     [6,8,76,'Os','Osmium'],
+  [6,9,77,'Ir','Iridium'],     [6,10,78,'Pt','Platinum'],
+  [6,11,79,'Au','Gold'],       [6,12,80,'Hg','Mercury'],
+  [6,13,81,'Tl','Thallium'],   [6,14,82,'Pb','Lead'],
+  [6,15,83,'Bi','Bismuth'],    [6,16,84,'Po','Polonium'],
+  [6,17,85,'At','Astatine'],   [6,18,86,'Rn','Radon'],
 
-  /* Period 7 */ {sym:'Fr',grp:1,  per:7},  {sym:'Ra',grp:2,  per:7},
-                 {sym:'Ac',grp:3,  per:7},  {sym:'Rf',grp:4,  per:7},
-                 {sym:'Db',grp:5,  per:7},  {sym:'Sg',grp:6,  per:7},
-                 {sym:'Bh',grp:7,  per:7},  {sym:'Hs',grp:8,  per:7},
-                 {sym:'Mt',grp:9,  per:7},  {sym:'Ds',grp:10, per:7},
-                 {sym:'Rg',grp:11, per:7},  {sym:'Cn',grp:12, per:7},
-                 {sym:'Nh',grp:13, per:7},  {sym:'Fl',grp:14, per:7},
-                 {sym:'Mc',grp:15, per:7},  {sym:'Lv',grp:16, per:7},
-                 {sym:'Ts',grp:17, per:7},  {sym:'Og',grp:18, per:7},
+  [7,1,87,'Fr','Francium'],    [7,2,88,'Ra','Radium'],
+  [7,3,89,'Ac','Actinium'],    [7,4,104,'Rf','Rutherfordium'],
+  [7,5,105,'Db','Dubnium'],    [7,6,106,'Sg','Seaborgium'],
+  [7,7,107,'Bh','Bohrium'],    [7,8,108,'Hs','Hassium'],
+  [7,9,109,'Mt','Meitnerium'], [7,10,110,'Ds','Darmstadtium'],
+  [7,11,111,'Rg','Roentgenium'],[7,12,112,'Cn','Copernicium'],
+  [7,13,113,'Nh','Nihonium'],  [7,14,114,'Fl','Flerovium'],
+  [7,15,115,'Mc','Moscovium'], [7,16,116,'Lv','Livermorium'],
+  [7,17,117,'Ts','Tennessine'],[7,18,118,'Og','Oganesson'],
 
-  /* Lanthanides (Ln row = period 8, offset under group 3) */
-  {sym:'Ce',grp:4,per:8},{sym:'Pr',grp:5,per:8},{sym:'Nd',grp:6,per:8},
-  {sym:'Pm',grp:7,per:8},{sym:'Sm',grp:8,per:8},{sym:'Eu',grp:9,per:8},
-  {sym:'Gd',grp:10,per:8},{sym:'Tb',grp:11,per:8},{sym:'Dy',grp:12,per:8},
-  {sym:'Ho',grp:13,per:8},{sym:'Er',grp:14,per:8},{sym:'Tm',grp:15,per:8},
-  {sym:'Yb',grp:16,per:8},{sym:'Lu',grp:17,per:8},
+  /* Lanthanides (period 8, offset group 4) */
+  [8,4,58,'Ce','Cerium'],  [8,5,59,'Pr','Praseodymium'],
+  [8,6,60,'Nd','Neodymium'],[8,7,61,'Pm','Promethium'],
+  [8,8,62,'Sm','Samarium'],[8,9,63,'Eu','Europium'],
+  [8,10,64,'Gd','Gadolinium'],[8,11,65,'Tb','Terbium'],
+  [8,12,66,'Dy','Dysprosium'],[8,13,67,'Ho','Holmium'],
+  [8,14,68,'Er','Erbium'],[8,15,69,'Tm','Thulium'],
+  [8,16,70,'Yb','Ytterbium'],[8,17,71,'Lu','Lutetium'],
 
-  /* Actinides (An row = period 9, offset under group 3) */
-  {sym:'Th',grp:4,per:9},{sym:'Pa',grp:5,per:9},{sym:'U', grp:6,per:9},
-  {sym:'Np',grp:7,per:9},{sym:'Pu',grp:8,per:9},{sym:'Am',grp:9,per:9},
-  {sym:'Cm',grp:10,per:9},{sym:'Bk',grp:11,per:9},{sym:'Cf',grp:12,per:9},
-  {sym:'Es',grp:13,per:9},{sym:'Fm',grp:14,per:9},{sym:'Md',grp:15,per:9},
-  {sym:'No',grp:16,per:9},{sym:'Lr',grp:17,per:9}
+  /* Actinides (period 9, offset group 4) */
+  [9,4,90,'Th','Thorium'],   [9,5,91,'Pa','Protactinium'],
+  [9,6,92,'U','Uranium'],    [9,7,93,'Np','Neptunium'],
+  [9,8,94,'Pu','Plutonium'], [9,9,95,'Am','Americium'],
+  [9,10,96,'Cm','Curium'],   [9,11,97,'Bk','Berkelium'],
+  [9,12,98,'Cf','Californium'],[9,13,99,'Es','Einsteinium'],
+  [9,14,100,'Fm','Fermium'], [9,15,101,'Md','Mendelevium'],
+  [9,16,102,'No','Nobelium'],[9,17,103,'Lr','Lawrencium'],
 ];
 
-/* ------------------------------------------------------------------
-   2.  Set of d-block elements that should be clickable
-   ------------------------------------------------------------------ */
-const transitionSet = new Set([
+/* ──────────────────────────────────────────────
+   2.  Interactive transition metals (up to Hg)
+   ────────────────────────────────────────────── */
+const transitionSet=new Set([
   'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn',
   'Y','Zr','Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd',
-  'La','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg',
-  'Ac','Rf','Db','Sg','Bh','Hs','Mt','Ds','Rg','Cn'
+  'La','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg'
 ]);
 
-/* ------------------------------------------------------------------
-   3.  Build the blank 9 × 18 grid
-   ------------------------------------------------------------------ */
-const table = document.getElementById('periodic-table');
-for (let row = 1; row <= 9; row++) {
-  for (let col = 1; col <= 18; col++) {
-    const d = document.createElement('div');
-    d.className = 'cell';
-    d.style.gridRow = row;
-    d.style.gridColumn = col;
-    table.appendChild(d);
+/* ──────────────────────────────────────────────
+   3.  Build grid
+   ────────────────────────────────────────────── */
+const tbl=document.getElementById('periodic-table');
+for(let r=1;r<=9;r++){
+  for(let c=1;c<=18;c++){
+    const d=document.createElement('div');
+    d.className='cell';
+    d.style.gridRow=r;d.style.gridColumn=c;
+    tbl.appendChild(d);
   }
 }
 
-/* ------------------------------------------------------------------
-   4.  Fill cells, attach click-handler only for transition metals
-   ------------------------------------------------------------------ */
-elements.forEach(e => {
-  const idx = (e.per - 1) * 18 + (e.grp - 1);
-  const cell = table.children[idx];
-  cell.textContent = e.sym;
+/* ──────────────────────────────────────────────
+   4.  Populate cells
+   ────────────────────────────────────────────── */
+elements.forEach(([per,grp,Z,sym,name])=>{
+  const idx=(per-1)*18+(grp-1);
+  const cell=tbl.children[idx];
+  cell.textContent=sym;
+  cell.dataset.title=`${Z} • ${name}`;
 
-  if (transitionSet.has(e.sym)) {
+  if(transitionSet.has(sym)){
     cell.classList.add('transition');
-    cell.dataset.symbol = e.sym;
-    cell.addEventListener('click', () => openCrystalModal(e.sym));
+    cell.addEventListener('click',()=>openCrystalModal(sym));
   }
 });
 
-/* ------------------------------------------------------------------
-   5.  Modal + plot-viewer logic  (unchanged)
-   ------------------------------------------------------------------ */
-const modal          = document.getElementById('crystal-modal');
-const chosenHeader   = document.getElementById('chosen-element');
-const buttons        = [...modal.querySelectorAll('[data-structure]')];
-const closeBtn       = document.getElementById('close-modal');
+/* ──────────────────────────────────────────────
+   5.  Modal & plots
+   ────────────────────────────────────────────── */
+const modal=document.getElementById('crystal-modal');
+const chosen=document.getElementById('chosen-element');
+const btns=[...modal.querySelectorAll('[data-structure]')];
+const close=document.getElementById('close-modal');
 
-const plotsSection = document.getElementById('plots-container');
-const plotsTitle   = document.getElementById('plots-title');
-const plotsGrid    = plotsSection.querySelector('.plots-grid');
-const plotKinds    = ['COOP','COHP','COBI','DOS'];
+const plotsSection=document.getElementById('plots-container');
+const plotsTitle=document.getElementById('plots-title');
+const plotsGrid=plotsSection.querySelector('.plots-grid');
+const kinds=['COOP','COHP','COBI','DOS'];
 
 function openCrystalModal(sym){
-  chosenHeader.textContent = sym;
+  chosen.textContent=sym;
   modal.showModal();
-  buttons.forEach(b=>{
-    b.onclick = () => {
-      modal.close();
-      showPlots(sym, b.dataset.structure);
-    };
+  btns.forEach(b=>{
+    b.onclick=()=>{modal.close();showPlots(sym,b.dataset.structure);}
   });
 }
-closeBtn.onclick = () => modal.close();
+close.onclick=()=>modal.close();
 
-function showPlots(sym, struct){
-  plotsTitle.textContent = `${sym} — ${struct.toUpperCase()} plots`;
-  plotsGrid.innerHTML = '';
-  plotKinds.forEach(k=>{
-    const img = document.createElement('img');
-    img.src = `plots/${struct}/${k}_plots/${k}_${sym}.png`;
-    img.alt = `${k} of ${sym} (${struct})`;
-    plotsGrid.appendChild(img);
+function showPlots(sym,structure){
+  plotsTitle.textContent=`${sym} — ${structure.toUpperCase()} plots`;
+  plotsGrid.innerHTML='';
+  kinds.forEach(k=>{
+    const fig=document.createElement('figure');
+    fig.className='plot-card';
+    const img=document.createElement('img');
+    img.src=`plots/${structure}/${k}_plots/${k}_${sym}.png`;
+    img.alt=`${k} of ${sym} (${structure})`;
+    const cap=document.createElement('figcaption');
+    cap.textContent=`Energy vs ${k==='COHP' ? '-COHP' : k}`;
+    fig.appendChild(img);fig.appendChild(cap);
+    plotsGrid.appendChild(fig);
   });
   plotsSection.classList.remove('hidden');
   plotsSection.scrollIntoView({behavior:'smooth'});

@@ -2,39 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
   <title>Transition-Metal Explorer</title>
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
+
+  <!-- ── HERO ──────────────────────────────────────────── -->
+  <header class="hero">
     <h1>Transition-Metal Explorer</h1>
     <p class="sub">
-      Click any <span class="legend transition-swatch">d-block</span> element
-      &nbsp;to view its COHP / COOP / COBI / DOS plots.
+      Click any <span class="transition-swatch" title="interactive d-block"></span>
+      <strong>d-block</strong> element to view its<br>
+      COHP / COOP / COBI / DOS plots.
     </p>
   </header>
 
-  <!-- Full periodic table grid (rows added dynamically by script.js) -->
-  <section id="periodic-table" class="periodic-table"></section>
+  <!-- ── PERIODIC TABLE ───────────────────────────────── -->
+  <main class="wrapper">
+    <section id="periodic-table" class="periodic-table" aria-label="periodic table"></section>
+  </main>
 
-  <!-- Modal: choose crystal structure ----------------------------------- -->
-  <dialog id="crystal-modal">
+  <!-- ── MODAL ─────────────────────────────────────────── -->
+  <dialog id="crystal-modal" aria-labelledby="chosen-element">
     <h2 id="chosen-element"></h2>
     <p>Select crystal structure:</p>
-
     <div class="crystal-options">
       <button data-structure="bcc">BCC</button>
       <button data-structure="fcc">FCC</button>
       <button data-structure="hcp">HCP</button>
     </div>
-
-    <button id="close-modal" class="close-btn" aria-label="Close">×</button>
+    <button id="close-modal" class="close-btn" aria-label="close">×</button>
   </dialog>
 
-  <!-- Plot viewer -------------------------------------------------------- -->
+  <!-- ── PLOT VIEWER ───────────────────────────────────── -->
   <section id="plots-container" class="plots hidden">
     <h2 id="plots-title"></h2>
     <div class="plots-grid"></div>
