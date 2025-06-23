@@ -78,67 +78,51 @@ const elements=[
 const transitionSet = new Set([
   'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn',
   'Y','Zr','Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd',
-  'La','Hf','Ta','W','Re','Os','Ir','Pt','Au'
+  'Hf','Ta','W','Re','Os','Ir','Pt','Au'
 ]);
 
-/* 3 ▸ Background-colour map (border left untouched) */
+/* 3 ▸ Interior colour map (no border override) */
 const fillMap = {
-  /* pink-peach */
-  Ni:'#ffc8b0', Cu:'#ffc8b0', Rh:'#ffc8b0', Pd:'#ffc8b0',
-  Ag:'#ffc8b0', Ir:'#ffc8b0', Pt:'#ffc8b0', Au:'#ffc8b0',
-
-  /* lavender */
-  Sc:'#D8A9D1', Ti:'#D8A9D1', Y :'#D8A9D1', Zr:'#D8A9D1',
-  Hf:'#D8A9D1', Co:'#D8A9D1', Tc:'#D8A9D1',
-  Ru:'#D8A9D1', Re:'#D8A9D1', Os:'#D8A9D1', Zn:'#D8A9D1',
-  Cd:'#D8A9D1',
-
-  /* mint */
-  V :'#ccffcc', Cr:'#ccffcc', Mn:'#ccffcc', Fe:'#ccffcc',
-  Nb:'#ccffcc', Mo:'#ccffcc', Ta:'#ccffcc', W :'#ccffcc'
+  /* pink-peach */  Ni:'#ffc8b0', Cu:'#ffc8b0', Rh:'#ffc8b0', Pd:'#ffc8b0',
+                    Ag:'#ffc8b0', Ir:'#ffc8b0', Pt:'#ffc8b0', Au:'#ffc8b0',
+  /* lavender  */  Sc:'#D8A9D1', Ti:'#D8A9D1', Y :'#D8A9D1', Zr:'#D8A9D1',
+                    Lu:'#D8A9D1', Hf:'#D8A9D1', Co:'#D8A9D1', Tc:'#D8A9D1',
+                    Ru:'#D8A9D1', Re:'#D8A9D1', Os:'#D8A9D1', Zn:'#D8A9D1', Cu:'#D8A9D1', 
+  /* mint      */  V :'#ccffcc', Cr:'#ccffcc', Mn:'#ccffcc', Fe:'#ccffcc',
+                    Nb:'#ccffcc', Mo:'#ccffcc', Ta:'#ccffcc', W :'#ccffcc'
 };
 
 /* ──────────────────────────────────────────────────────────
-   4 ▸ Build blank 9×18 grid
+   4 ▸ Build ONLY the real element cells
    ────────────────────────────────────────────────────────── */
 const tbl = document.getElementById('periodic-table');
-for (let r = 1; r <= 9; r++) {
-  for (let c = 1; c <= 18; c++) {
-    const d = document.createElement('div');
-    d.className = 'cell';
-    d.style.gridRow = r;
-    d.style.gridColumn = c;
-    tbl.appendChild(d);
-  }
-}
 
-/* ──────────────────────────────────────────────────────────
-   5 ▸ Populate cells
-   ────────────────────────────────────────────────────────── */
 elements.forEach(([per,grp,Z,sym,name])=>{
-  const idx  = (per-1)*18 + (grp-1);
-  const cell = tbl.children[idx];
-  cell.textContent = sym;
-  cell.dataset.title = `${Z} • ${name}`;
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  cell.style.gridRow    = per;
+  cell.style.gridColumn = grp;
+  cell.textContent      = sym;
+  cell.dataset.title    = `${Z} • ${name}`;
 
-  /* only set background colour */
-  if (fillMap[sym]) {
-    cell.style.background = fillMap[sym];
-  }
+  /* custom fill colour */
+  if (fillMap[sym]) cell.style.background = fillMap[sym];
 
+  /* make interactive if d-block */
   if (transitionSet.has(sym)) {
     cell.classList.add('transition');
-    cell.addEventListener('click',()=>openCrystalModal(sym));
+    cell.addEventListener('click', () => openCrystalModal(sym));
   }
+  tbl.appendChild(cell);
 });
 
 /* ──────────────────────────────────────────────────────────
-   6 ▸ Modal & plot viewer (unchanged)
+   5 ▸ Modal & plot viewer (unchanged)
    ────────────────────────────────────────────────────────── */
-const modal = document.getElementById('crystal-modal');
+const modal  = document.getElementById('crystal-modal');
 const chosen = document.getElementById('chosen-element');
-const btns = [...modal.querySelectorAll('[data-structure]')];
-const closeBtn = document.getElementById('close-modal');
+const btns   = [...modal.querySelectorAll('[data-structure]')];
+const close  = document.getElementById('close-modal');
 
 const plotsSection = document.getElementById('plots-container');
 const plotsTitle   = document.getElementById('plots-title');
@@ -152,7 +136,7 @@ function openCrystalModal(sym){
     b.onclick = () => { modal.close(); showPlots(sym,b.dataset.structure); };
   });
 }
-closeBtn.onclick = () => modal.close();
+close.onclick = () => modal.close();
 
 function showPlots(sym,structure){
   plotsTitle.textContent = `${sym} — ${structure.toUpperCase()} plots`;
@@ -160,12 +144,15 @@ function showPlots(sym,structure){
   kinds.forEach(k=>{
     const fig = document.createElement('figure');
     fig.className = 'plot-card';
+
     const img = document.createElement('img');
     img.src = `plots/${structure}/${k}_plots/${k}_${sym}.png`;
     img.alt = `${k} of ${sym} (${structure})`;
+
     const cap = document.createElement('figcaption');
     cap.textContent = `Energy vs ${k==='COHP' ? '-COHP' : k}`;
-    fig.append(img,cap);
+
+    fig.append(img, cap);
     plotsGrid.appendChild(fig);
   });
   plotsSection.classList.remove('hidden');
