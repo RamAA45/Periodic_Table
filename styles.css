@@ -1,0 +1,154 @@
+/* ------------------------------------------------------------------
+   Global resets & variables
+   ------------------------------------------------------------------ */
+:root {
+  --accent: #007acc;      /* blue for transition metals                     */
+  --bg:     #f9f9f9;      /* light page background                          */
+  --fg:     #222;         /* main text colour                               */
+  --grid-gap: 4px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------------
+   Header
+   ------------------------------------------------------------------ */
+header {
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+}
+h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 700; letter-spacing: .02em; }
+.sub { margin-top: .25rem; font-size: .9rem; opacity: .75; }
+
+/* tiny coloured square shown in legend sentence */
+.legend.transition-swatch {
+  display: inline-block;
+  width: .9em;
+  height: .9em;
+  vertical-align: -.15em;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Periodic table grid
+   ------------------------------------------------------------------ */
+.periodic-table {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(18, minmax(55px, 1fr));
+  gap: var(--grid-gap);
+  margin-bottom: 2.5rem;
+}
+
+.cell {
+  border: 1px solid #ddd;
+  background: #fff;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  user-select: none;
+}
+
+/* interactive d-block */
+.transition {
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  transition: transform .15s;
+}
+.transition:hover { transform: scale(1.06); }
+
+/* ------------------------------------------------------------------
+   Crystal-structure modal
+   ------------------------------------------------------------------ */
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 1.6rem 2.2rem 2rem;
+  box-shadow: 0 14px 36px rgba(0,0,0,.25);
+  max-width: 360px;
+  text-align: center;
+}
+
+.crystal-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.crystal-options button {
+  padding: .6rem 1.3rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.close-btn {
+  position: absolute;
+  right: .5rem;
+  top: .3rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--fg);
+}
+
+/* ------------------------------------------------------------------
+   Plot viewer
+   ------------------------------------------------------------------ */
+.hidden { display: none; }
+
+.plots {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.plots-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.2rem;
+}
+
+.plots-grid img {
+  width: 100%;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+/* ------------------------------------------------------------------
+   Mobile tweaks
+   ------------------------------------------------------------------ */
+@media (max-width: 600px) {
+  .periodic-table {
+    grid-template-columns: repeat(9, 1fr);
+  }
+}

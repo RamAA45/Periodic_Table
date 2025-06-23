@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transition-Metal Explorer</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Transition-Metal Explorer</h1>
+    <p class="sub">
+      Click any <span class="legend transition-swatch">d-block</span> element
+      &nbsp;to view its COHP / COOP / COBI / DOS plots.
+    </p>
+  </header>
+
+  <!-- Full periodic table grid (rows added dynamically by script.js) -->
+  <section id="periodic-table" class="periodic-table"></section>
+
+  <!-- Modal: choose crystal structure ----------------------------------- -->
+  <dialog id="crystal-modal">
+    <h2 id="chosen-element"></h2>
+    <p>Select crystal structure:</p>
+
+    <div class="crystal-options">
+      <button data-structure="bcc">BCC</button>
+      <button data-structure="fcc">FCC</button>
+      <button data-structure="hcp">HCP</button>
+    </div>
+
+    <button id="close-modal" class="close-btn" aria-label="Close">×</button>
+  </dialog>
+
+  <!-- Plot viewer -------------------------------------------------------- -->
+  <section id="plots-container" class="plots hidden">
+    <h2 id="plots-title"></h2>
+    <div class="plots-grid"></div>
+  </section>
+
+  <!-- Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
