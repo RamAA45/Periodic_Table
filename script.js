@@ -74,77 +74,105 @@ const elements=[
   [9,16,102,'No','Nobelium'],[9,17,103,'Lr','Lawrencium'],
 ];
 
-/* ──────────────────────────────────────────────
-   2.  Interactive transition metals (up to Hg)
-   ────────────────────────────────────────────── */
-const transitionSet=new Set([
+/* 2 ▸ Interactive d-block set (through Hg) */
+const transitionSet = new Set([
   'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn',
   'Y','Zr','Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd',
   'La','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg'
 ]);
 
-/* ──────────────────────────────────────────────
-   3.  Build grid
-   ────────────────────────────────────────────── */
-const tbl=document.getElementById('periodic-table');
-for(let r=1;r<=9;r++){
-  for(let c=1;c<=18;c++){
-    const d=document.createElement('div');
-    d.className='cell';
-    d.style.gridRow=r;d.style.gridColumn=c;
+/* 3 ▸ Custom colour map */
+const colorMap = {
+  /* pink-peach group */
+  Ni:['#ff007f','#ffc8b0'],Cu:['#ff007f','#ffc8b0'],
+  Rh:['#ff007f','#ffc8b0'],Pd:['#ff007f','#ffc8b0'],
+  Ag:['#ff007f','#ffc8b0'],Ir:['#ff007f','#ffc8b0'],
+  Pt:['#ff007f','#ffc8b0'],Au:['#ff007f','#ffc8b0'],
+
+  /* plum-lavender group */
+  Sc:['#5A005F','#D8A9D1'],Ti:['#5A005F','#D8A9D1'],Y:['#5A005F','#D8A9D1'],
+  Zr:['#5A005F','#D8A9D1'],Lu:['#5A005F','#D8A9D1'],Hf:['#5A005F','#D8A9D1'],
+  Co:['#5A005F','#D8A9D1'],Tc:['#5A005F','#D8A9D1'],Ru:['#5A005F','#D8A9D1'],
+  Re:['#5A005F','#D8A9D1'],Os:['#5A005F','#D8A9D1'],
+
+  /* aqua-mint group */
+  V:['#00c8c8','#ccffcc'],Cr:['#00c8c8','#ccffcc'],
+  Mn:['#00c8c8','#ccffcc'],Fe:['#00c8c8','#ccffcc'],
+  Nb:['#00c8c8','#ccffcc'],Mo:['#00c8c8','#ccffcc'],
+  Ta:['#00c8c8','#ccffcc'],W:['#00c8c8','#ccffcc']
+};
+
+/* ──────────────────────────────────────────────────────────
+   4 ▸ Build blank 9×18 grid
+   ────────────────────────────────────────────────────────── */
+const tbl = document.getElementById('periodic-table');
+for (let r = 1; r <= 9; r++) {
+  for (let c = 1; c <= 18; c++) {
+    const d = document.createElement('div');
+    d.className = 'cell';
+    d.style.gridRow    = r;
+    d.style.gridColumn = c;
     tbl.appendChild(d);
   }
 }
 
-/* ──────────────────────────────────────────────
-   4.  Populate cells
-   ────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────
+   5 ▸ Populate cells, apply colours, attach click‐handlers
+   ────────────────────────────────────────────────────────── */
 elements.forEach(([per,grp,Z,sym,name])=>{
-  const idx=(per-1)*18+(grp-1);
-  const cell=tbl.children[idx];
-  cell.textContent=sym;
-  cell.dataset.title=`${Z} • ${name}`;
+  const idx  = (per-1)*18 + (grp-1);
+  const cell = tbl.children[idx];
+  cell.textContent = sym;
+  cell.dataset.title = `${Z} • ${name}`;
 
-  if(transitionSet.has(sym)){
+  /* custom colour */
+  if (colorMap[sym]) {
+    const [border, fill] = colorMap[sym];
+    cell.style.borderColor = border;
+    cell.style.background  = fill;
+  }
+
+  /* interactivity */
+  if (transitionSet.has(sym)) {
     cell.classList.add('transition');
-    cell.addEventListener('click',()=>openCrystalModal(sym));
+    cell.addEventListener('click', ()=>openCrystalModal(sym));
   }
 });
 
-/* ──────────────────────────────────────────────
-   5.  Modal & plots
-   ────────────────────────────────────────────── */
-const modal=document.getElementById('crystal-modal');
-const chosen=document.getElementById('chosen-element');
-const btns=[...modal.querySelectorAll('[data-structure]')];
-const close=document.getElementById('close-modal');
+/* ──────────────────────────────────────────────────────────
+   6 ▸ Modal + plot viewer (unchanged)
+   ────────────────────────────────────────────────────────── */
+const modal = document.getElementById('crystal-modal');
+const chosen = document.getElementById('chosen-element');
+const btns = [...modal.querySelectorAll('[data-structure]')];
+const closeBtn = document.getElementById('close-modal');
 
-const plotsSection=document.getElementById('plots-container');
-const plotsTitle=document.getElementById('plots-title');
-const plotsGrid=plotsSection.querySelector('.plots-grid');
-const kinds=['COOP','COHP','COBI','DOS'];
+const plotsSection = document.getElementById('plots-container');
+const plotsTitle   = document.getElementById('plots-title');
+const plotsGrid    = plotsSection.querySelector('.plots-grid');
+const kinds        = ['COOP','COHP','COBI','DOS'];
 
 function openCrystalModal(sym){
-  chosen.textContent=sym;
+  chosen.textContent = sym;
   modal.showModal();
   btns.forEach(b=>{
-    b.onclick=()=>{modal.close();showPlots(sym,b.dataset.structure);}
+    b.onclick = () => { modal.close(); showPlots(sym,b.dataset.structure); };
   });
 }
-close.onclick=()=>modal.close();
+closeBtn.onclick = () => modal.close();
 
 function showPlots(sym,structure){
-  plotsTitle.textContent=`${sym} — ${structure.toUpperCase()} plots`;
-  plotsGrid.innerHTML='';
+  plotsTitle.textContent = `${sym} — ${structure.toUpperCase()} plots`;
+  plotsGrid.innerHTML = '';
   kinds.forEach(k=>{
-    const fig=document.createElement('figure');
-    fig.className='plot-card';
-    const img=document.createElement('img');
-    img.src=`plots/${structure}/${k}_plots/${k}_${sym}.png`;
-    img.alt=`${k} of ${sym} (${structure})`;
-    const cap=document.createElement('figcaption');
-    cap.textContent=`Energy vs ${k==='COHP' ? '-COHP' : k}`;
-    fig.appendChild(img);fig.appendChild(cap);
+    const fig = document.createElement('figure');
+    fig.className = 'plot-card';
+    const img = document.createElement('img');
+    img.src = `plots/${structure}/${k}_plots/${k}_${sym}.png`;
+    img.alt = `${k} of ${sym} (${structure})`;
+    const cap = document.createElement('figcaption');
+    cap.textContent = `Energy vs ${k==='COHP' ? '-COHP' : k}`;
+    fig.append(img,cap);
     plotsGrid.appendChild(fig);
   });
   plotsSection.classList.remove('hidden');
