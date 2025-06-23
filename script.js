@@ -78,28 +78,24 @@ const elements=[
 const transitionSet = new Set([
   'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn',
   'Y','Zr','Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd',
-  'La','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg'
+  'La','Hf','Ta','W','Re','Os','Ir','Pt','Au'
 ]);
 
-/* 3 ▸ Custom colour map */
-const colorMap = {
-  /* pink-peach group */
-  Ni:['#ff007f','#ffc8b0'],Cu:['#ff007f','#ffc8b0'],
-  Rh:['#ff007f','#ffc8b0'],Pd:['#ff007f','#ffc8b0'],
-  Ag:['#ff007f','#ffc8b0'],Ir:['#ff007f','#ffc8b0'],
-  Pt:['#ff007f','#ffc8b0'],Au:['#ff007f','#ffc8b0'],
+/* 3 ▸ Background-colour map (border left untouched) */
+const fillMap = {
+  /* pink-peach */
+  Ni:'#ffc8b0', Cu:'#ffc8b0', Rh:'#ffc8b0', Pd:'#ffc8b0',
+  Ag:'#ffc8b0', Ir:'#ffc8b0', Pt:'#ffc8b0', Au:'#ffc8b0',
 
-  /* plum-lavender group */
-  Sc:['#5A005F','#D8A9D1'],Ti:['#5A005F','#D8A9D1'],Y:['#5A005F','#D8A9D1'],
-  Zr:['#5A005F','#D8A9D1'],Lu:['#5A005F','#D8A9D1'],Hf:['#5A005F','#D8A9D1'],
-  Co:['#5A005F','#D8A9D1'],Tc:['#5A005F','#D8A9D1'],Ru:['#5A005F','#D8A9D1'],
-  Re:['#5A005F','#D8A9D1'],Os:['#5A005F','#D8A9D1'],
+  /* lavender */
+  Sc:'#D8A9D1', Ti:'#D8A9D1', Y :'#D8A9D1', Zr:'#D8A9D1',
+  Lu:'#D8A9D1', Hf:'#D8A9D1', Co:'#D8A9D1', Tc:'#D8A9D1',
+  Ru:'#D8A9D1', Re:'#D8A9D1', Os:'#D8A9D1', Zn:'#D8A9D1',
+  Cd:'#D8A9D1',
 
-  /* aqua-mint group */
-  V:['#00c8c8','#ccffcc'],Cr:['#00c8c8','#ccffcc'],
-  Mn:['#00c8c8','#ccffcc'],Fe:['#00c8c8','#ccffcc'],
-  Nb:['#00c8c8','#ccffcc'],Mo:['#00c8c8','#ccffcc'],
-  Ta:['#00c8c8','#ccffcc'],W:['#00c8c8','#ccffcc']
+  /* mint */
+  V :'#ccffcc', Cr:'#ccffcc', Mn:'#ccffcc', Fe:'#ccffcc',
+  Nb:'#ccffcc', Mo:'#ccffcc', Ta:'#ccffcc', W :'#ccffcc'
 };
 
 /* ──────────────────────────────────────────────────────────
@@ -110,14 +106,14 @@ for (let r = 1; r <= 9; r++) {
   for (let c = 1; c <= 18; c++) {
     const d = document.createElement('div');
     d.className = 'cell';
-    d.style.gridRow    = r;
+    d.style.gridRow = r;
     d.style.gridColumn = c;
     tbl.appendChild(d);
   }
 }
 
 /* ──────────────────────────────────────────────────────────
-   5 ▸ Populate cells, apply colours, attach click‐handlers
+   5 ▸ Populate cells
    ────────────────────────────────────────────────────────── */
 elements.forEach(([per,grp,Z,sym,name])=>{
   const idx  = (per-1)*18 + (grp-1);
@@ -125,22 +121,19 @@ elements.forEach(([per,grp,Z,sym,name])=>{
   cell.textContent = sym;
   cell.dataset.title = `${Z} • ${name}`;
 
-  /* custom colour */
-  if (colorMap[sym]) {
-    const [border, fill] = colorMap[sym];
-    cell.style.borderColor = border;
-    cell.style.background  = fill;
+  /* only set background colour */
+  if (fillMap[sym]) {
+    cell.style.background = fillMap[sym];
   }
 
-  /* interactivity */
   if (transitionSet.has(sym)) {
     cell.classList.add('transition');
-    cell.addEventListener('click', ()=>openCrystalModal(sym));
+    cell.addEventListener('click',()=>openCrystalModal(sym));
   }
 });
 
 /* ──────────────────────────────────────────────────────────
-   6 ▸ Modal + plot viewer (unchanged)
+   6 ▸ Modal & plot viewer (unchanged)
    ────────────────────────────────────────────────────────── */
 const modal = document.getElementById('crystal-modal');
 const chosen = document.getElementById('chosen-element');
