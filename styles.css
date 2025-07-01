@@ -178,6 +178,41 @@ dialog{
   margin-top:.55rem;font-size:.83rem;color:var(--soft);
 }
 
+/* ── HOVER INFO CARD ─────────────────────────── */
+.info-card{
+  position:absolute;   /* floats over the periodic table */
+  right:1.5rem; top:6.5rem; z-index:3;
+
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem 1.2rem;
+  box-shadow:0 8px 28px rgba(0,0,0,.55);
+
+  min-width:220px;
+  font-size:.85rem; line-height:1.45;
+}
+.info-card.hidden{display:none}
+
+.info-card .title{               /* element symbol */
+  text-align:center;
+  font-weight:600;
+  font-size:1rem;
+  margin-bottom:.4rem;
+}
+
+.info-card table{
+  width:100%; border-collapse:collapse;
+}
+.info-card th,
+.info-card td{
+  padding:.25rem .45rem;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.info-card tr:last-child td{border-bottom:none}
+
+
 /* ── RESPONSIVE ──────────────────────────────── */
 @media(max-width:650px){
   .periodic-table{grid-template-columns:repeat(9,1fr)}
