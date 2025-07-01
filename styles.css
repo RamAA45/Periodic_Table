@@ -181,8 +181,8 @@ dialog{
 /* ── HOVER INFO CARD ─────────────────────────── */
 .info-card{
   position:absolute;
-  top:6.5rem;
-  left:50%;
+  top:8rem;
+  left:45%;
   transform:translateX(-50%);
   z-index:3;
 
