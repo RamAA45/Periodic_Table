@@ -180,8 +180,11 @@ dialog{
 
 /* ── HOVER INFO CARD ─────────────────────────── */
 .info-card{
-  position:absolute;   /* floats over the periodic table */
-  right:1.5rem; top:6.5rem; z-index:3;
+  position:absolute;
+  top:6.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:3;
 
   background:var(--card);
   border:1px solid var(--border);
@@ -192,6 +195,7 @@ dialog{
   min-width:220px;
   font-size:.85rem; line-height:1.45;
 }
+
 .info-card.hidden{display:none}
 
 .info-card .title{               /* element symbol */
