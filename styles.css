@@ -3,9 +3,9 @@
    ────────────────────────────────────────────── */
 :root{
   --accent:#51C8FF;          /* neon sky-blue */
-  --bg-1:#0D1323;            /* deep navy */
-  --bg-2:#1A2134;            /* slate-blue */
-  --blob-1:#5936FF;          /* softly animated nebula colours */
+  --bg-1:#0D1323;            /* deep navy     */
+  --bg-2:#1A2134;            /* slate-blue    */
+  --blob-1:#5936FF;          /* animated blobs */
   --blob-2:#9B00FA;
   --blob-3:#0080FF;
   --card:#1E273D;            /* glass card background */
@@ -27,12 +27,8 @@ body{
 /* ── MOVING BACKGROUND BLOBS ────────────────── */
 body::before,body::after{
   content:"";
-  position:fixed;
-  width:600px;height:600px;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:.25;
-  pointer-events:none;
+  position:fixed; width:600px;height:600px;border-radius:50%;
+  filter:blur(120px); opacity:.25; pointer-events:none;
   animation:float 22s linear infinite;
 }
 body::before{
@@ -41,84 +37,54 @@ body::before{
 }
 body::after{
   background:radial-gradient(circle at 70% 70%,var(--blob-3),transparent 60%);
-  bottom:-180px;right:-240px;
-  animation-direction:reverse;
+  bottom:-180px;right:-240px; animation-direction:reverse;
 }
-@keyframes float{
-  0%,100%{transform:translateY(0) scale(1)}
-  50%     {transform:translateY(60px) scale(1.05)}
-}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(60px) scale(1.05)}}
 
 /* ── HERO ───────────────────────────────────── */
-.hero{
-  padding:2.2rem 1rem 1.6rem;text-align:center;position:relative;
-}
+.hero{padding:2.2rem 1rem 1.6rem;text-align:center;position:relative;}
 .hero h1{
-  font-size:clamp(1.9rem,5vw,2.8rem);
-  font-weight:700;
-  color:var(--text);
-  display:inline-block;
+  font-size:clamp(1.9rem,5vw,2.8rem);font-weight:700;color:var(--text);display:inline-block;
 }
-.hero h1::after{                     /* animated underline */
-  content:"";
-  display:block;
-  height:3px;width:100%;
-  background:linear-gradient(90deg,transparent, var(--accent), transparent);
-  margin-top:.3rem;
-  animation:shine 3.5s linear infinite;
+.hero h1::after{
+  content:"";display:block;height:3px;width:100%;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  margin-top:.3rem;animation:shine 3.5s linear infinite;
 }
-@keyframes shine{
-  0%  {background-position:-200%}
-  100%{background-position:200%}
-}
-.sub{
-  font-size:.95rem;line-height:1.5;color:var(--soft);
-  margin-top:.5rem;
-}
+@keyframes shine{0%{background-position:-200%}100%{background-position:200%}}
+.sub{font-size:.95rem;line-height:1.5;color:var(--soft);margin-top:.5rem;}
 .transition-swatch{
   display:inline-block;width:1.05em;height:1.05em;margin-right:.25em;
-  vertical-align:-0.25em;
-  background:var(--accent);
-  border-radius:4px;
+  vertical-align:-0.25em;background:var(--accent);border-radius:4px;
   box-shadow:0 0 6px var(--accent);
 }
 
 /* ── WRAPPER ─────────────────────────────────── */
 .wrapper{
   width:100%;max-width:1100px;padding:0 1rem 4rem;
-  display:flex;justify-content:center;
-  position:relative;z-index:2;   /* stay above blobs */
+  display:flex;justify-content:center;position:relative;z-index:2;
 }
 
 /* ── PERIODIC TABLE GRID ─────────────────────── */
 .periodic-table{
-  background:rgba(30,39,61,.55);        /* glassmorphism */
+  background:rgba(30,39,61,.55);
   backdrop-filter:blur(18px) saturate(160%);
   border-radius:var(--radius);
   box-shadow:0 12px 46px rgba(0,0,0,.55),
              inset 0 1px 1px rgba(255,255,255,.05);
   padding:1.4rem;
-  display:grid;
-  grid-template-columns:repeat(18,minmax(55px,1fr));
-  gap:6px;
-  border:1px solid rgba(255,255,255,.05);
+  display:grid;grid-template-columns:repeat(18,minmax(55px,1fr));
+  gap:6px;border:1px solid rgba(255,255,255,.05);
 }
 .cell{
-  background:rgba(255,255,255,.08);
-  border:1px solid var(--border);
-  border-radius:8px;
-  aspect-ratio:1/1;
-  position:relative;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;font-weight:500;
-  color:var(--text);user-select:none;
+  background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:8px;
+  aspect-ratio:1/1;position:relative;display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:500;color:var(--text);user-select:none;
   transition:.25s transform,.25s box-shadow,.25s background;
 }
 .cell[data-title]:hover:after{
-  content:attr(data-title);
-  position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
-  padding:.32em .7em;border-radius:4px;font-size:.7rem;
-  background:var(--text);color:#0D1323;
+  content:attr(data-title);position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  padding:.32em .7em;border-radius:4px;font-size:.7rem;background:var(--text);color:#0D1323;
   white-space:nowrap;opacity:.95;
 }
 /* interactive d-block tiles */
@@ -133,19 +99,14 @@ body::after{
 
 /* ── MODAL ───────────────────────────────────── */
 dialog{
-  border:none;border-radius:var(--radius);
-  background:var(--card);
-  padding:1.9rem 2.6rem 2.3rem;
-  box-shadow:0 22px 70px rgba(0,0,0,.78);
+  border:none;border-radius:var(--radius);background:var(--card);
+  padding:1.9rem 2.6rem 2.3rem;box-shadow:0 22px 70px rgba(0,0,0,.78);
   text-align:center;color:var(--text);
 }
-.crystal-options{
-  display:flex;gap:1.1rem;justify-content:center;margin-top:1.3rem;
-}
+.crystal-options{display:flex;gap:1.1rem;justify-content:center;margin-top:1.3rem;}
 .crystal-options button{
-  padding:.68rem 1.55rem;font-weight:600;
-  background:var(--accent);color:#0D1323;border:none;border-radius:8px;
-  cursor:pointer;transition:.25s transform, .25s box-shadow;
+  padding:.68rem 1.55rem;font-weight:600;background:var(--accent);color:#0D1323;border:none;
+  border-radius:8px;cursor:pointer;transition:.25s transform,.25s box-shadow;
   box-shadow:0 0 0 var(--accent);
 }
 .crystal-options button:hover{
@@ -159,78 +120,45 @@ dialog{
 
 /* ── PLOT VIEWER ─────────────────────────────── */
 .hidden{display:none}
-.plots{
-  width:100%;max-width:1000px;margin-bottom:4rem;text-align:center;
-}
-.plots h2{
-  font-size:1.55rem;font-weight:600;margin-bottom:1.4rem;color:var(--text);
-}
+.plots{width:100%;max-width:1000px;margin-bottom:4rem;text-align:center;}
+.plots h2{font-size:1.55rem;font-weight:600;margin-bottom:1.4rem;color:var(--text);}
 .plots-grid{
-  display:grid;gap:1.3rem;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 }
 .plot-card{display:flex;flex-direction:column;align-items:center}
 .plot-card img{
   width:100%;border-radius:8px;border:2px solid var(--border);
   background:#0D1323;box-shadow:0 4px 20px rgba(0,0,0,.6);
 }
-.plot-card figcaption{
-  margin-top:.55rem;font-size:.83rem;color:var(--soft);
-}
+.plot-card figcaption{margin-top:.55rem;font-size:.83rem;color:var(--soft);}
 
 /* ── HOVER INFO CARD ─────────────────────────── */
 .info-card{
-  position:absolute;
-  top:12rem;                 /* your latest offsets           */
-  left:45%;
-  transform:translateX(-50%);
-  z-index:3;
-
-  /* NEW COLOURS */
-  background:#ffca91;        /* orange card backdrop          */
-  color:var(--accent);       /* sky-blue text everywhere      */
-
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--radius);
-  padding:1rem 1.2rem;
-  box-shadow:0 8px 28px rgba(0,0,0,.55);
-
-  min-width:220px;
-  font-size:.85rem; line-height:1.45;
+  position:absolute;top:12rem;left:45%;transform:translateX(-50%);z-index:3;
+  background:#ffca91; color:var(--accent);
+  border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);
+  padding:1rem 1.2rem;box-shadow:0 8px 28px rgba(0,0,0,.55);
+  min-width:220px;font-size:.85rem;line-height:1.45;
 }
-
-/* ensure table borders stay subtle against orange */
-.info-card th,
-.info-card td{
-  border-bottom:1px solid rgba(0,0,0,.15);
-}
-
-
 .info-card.hidden{display:none}
-
-.info-card .title{               /* element symbol */
-  text-align:center;
-  font-weight:600;
-  font-size:1rem;
-  margin-bottom:.4rem;
+.info-card .title{
+  text-align:center;font-weight:600;font-size:1rem;margin-bottom:.4rem;
 }
-
-.info-card table{
-  width:100%; border-collapse:collapse;
-}
+.info-card table{width:100%;border-collapse:collapse}
 .info-card th,
 .info-card td{
-  padding:.25rem .45rem;
-  text-align:center;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.info-card:hover{
-  color:#00152a;   /* deep navy / dark blue */
+  padding:.25rem .45rem;text-align:center;
+  border-bottom:1px solid rgba(0,0,0,.15);
 }
 .info-card tr:last-child td{border-bottom:none}
 
+/* ── DARK-BLUE TEXT ON HOVER ─────────────────── */
+.info-card:hover,
+.info-card:hover .title,
+.info-card:hover th,
+.info-card:hover td{
+  color:#00152a !important;   /* deep navy */
+}
 
 /* ── RESPONSIVE ──────────────────────────────── */
-@media(max-width:650px){
-  .periodic-table{grid-template-columns:repeat(9,1fr)}
-}
+@media(max-width:650px){.periodic-table{grid-template-columns:repeat(9,1fr)}}
