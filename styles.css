@@ -225,7 +225,7 @@ dialog{
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 .info-card:hover{
-  color:#00284f;   /* deep navy / dark blue */
+  color:#00152a;   /* deep navy / dark blue */
 }
 .info-card tr:last-child td{border-bottom:none}
 
