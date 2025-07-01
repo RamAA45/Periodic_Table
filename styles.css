@@ -181,13 +181,16 @@ dialog{
 /* ── HOVER INFO CARD ─────────────────────────── */
 .info-card{
   position:absolute;
-  top:12rem;
+  top:12rem;                 /* your latest offsets           */
   left:45%;
   transform:translateX(-50%);
   z-index:3;
 
-  background:var(--card);
-  border:1px solid var(--border);
+  /* NEW COLOURS */
+  background:#FF9F3A;        /* orange card backdrop          */
+  color:var(--accent);       /* sky-blue text everywhere      */
+
+  border:1px solid rgba(255,255,255,.12);
   border-radius:var(--radius);
   padding:1rem 1.2rem;
   box-shadow:0 8px 28px rgba(0,0,0,.55);
@@ -195,6 +198,13 @@ dialog{
   min-width:220px;
   font-size:.85rem; line-height:1.45;
 }
+
+/* ensure table borders stay subtle against orange */
+.info-card th,
+.info-card td{
+  border-bottom:1px solid rgba(0,0,0,.15);
+}
+
 
 .info-card.hidden{display:none}
 
