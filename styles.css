@@ -200,7 +200,7 @@ dialog{
   z-index:3;
 
   background:#ffca91;        /* orange card backdrop          */
-  color:#0D1323;             /* dark-blue text everywhere     */
+  color:#03237a;             /* dark-blue text everywhere     */
 
   border:1px solid rgba(255,255,255,.12);
   border-radius:var(--radius);
