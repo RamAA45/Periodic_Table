@@ -224,7 +224,6 @@ dialog{
 .info-card:hover .title{
   color:#0D1323;        /* dark-blue like the page background */
 }
-.info-card tr:last-child td{border-bottom:none}
 
 
 /* ── RESPONSIVE ──────────────────────────────── */
