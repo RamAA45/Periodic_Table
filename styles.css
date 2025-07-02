@@ -14,6 +14,7 @@
   --soft:#9AA3C8;
   --radius:12px;
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -25,7 +26,8 @@ body{
 }
 
 /* ── MOVING BACKGROUND BLOBS ────────────────── */
-body::before,body::after{
+body::before,
+body::after{
   content:"";
   position:fixed;
   width:600px;height:600px;
@@ -46,12 +48,14 @@ body::after{
 }
 @keyframes float{
   0%,100%{transform:translateY(0) scale(1)}
-  50%     {transform:translateY(60px) scale(1.05)}
+  50%    {transform:translateY(60px) scale(1.05)}
 }
 
 /* ── HERO ───────────────────────────────────── */
 .hero{
-  padding:2.2rem 1rem 1.6rem;text-align:center;position:relative;
+  padding:2.2rem 1rem 1.6rem;
+  text-align:center;
+  position:relative;
 }
 .hero h1{
   font-size:clamp(1.9rem,5vw,2.8rem);
@@ -63,7 +67,7 @@ body::after{
   content:"";
   display:block;
   height:3px;width:100%;
-  background:linear-gradient(90deg,transparent, var(--accent), transparent);
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
   margin-top:.3rem;
   animation:shine 3.5s linear infinite;
 }
@@ -85,9 +89,10 @@ body::after{
 
 /* ── WRAPPER ─────────────────────────────────── */
 .wrapper{
-  width:100%;max-width:1100px;padding:0 1rem 4rem;
+  width:100%;max-width:1100px;
+  padding:0 1rem 4rem;
   display:flex;justify-content:center;
-  position:relative;z-index:2;   /* stay above blobs */
+  position:relative;z-index:2; /* stay above blobs */
 }
 
 /* ── PERIODIC TABLE GRID ─────────────────────── */
@@ -116,7 +121,8 @@ body::after{
 }
 .cell[data-title]:hover:after{
   content:attr(data-title);
-  position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:110%;left:50%;
+  transform:translateX(-50%);
   padding:.32em .7em;border-radius:4px;font-size:.7rem;
   background:var(--text);color:#0D1323;
   white-space:nowrap;opacity:.95;
@@ -128,7 +134,8 @@ body::after{
 }
 .transition:hover{
   transform:translateY(-4px) scale(1.08);
-  box-shadow:0 0 14px var(--accent),0 0 28px rgba(81,200,255,.45);
+  box-shadow:0 0 14px var(--accent),
+             0 0 28px rgba(81,200,255,.45);
 }
 
 /* ── MODAL ───────────────────────────────────── */
@@ -145,15 +152,17 @@ dialog{
 .crystal-options button{
   padding:.68rem 1.55rem;font-weight:600;
   background:var(--accent);color:#0D1323;border:none;border-radius:8px;
-  cursor:pointer;transition:.25s transform, .25s box-shadow;
+  cursor:pointer;transition:.25s transform,.25s box-shadow;
   box-shadow:0 0 0 var(--accent);
 }
 .crystal-options button:hover{
   transform:translateY(-2px);
-  box-shadow:0 0 14px var(--accent),0 0 28px rgba(81,200,255,.4);
+  box-shadow:0 0 14px var(--accent),
+             0 0 28px rgba(81,200,255,.4);
 }
 .close-btn{
-  position:absolute;top:.45rem;right:.6rem;font-size:1.5rem;
+  position:absolute;top:.45rem;right:.6rem;
+  font-size:1.5rem;
   background:none;border:none;color:var(--soft);cursor:pointer;
 }
 
@@ -169,10 +178,14 @@ dialog{
   display:grid;gap:1.3rem;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 }
-.plot-card{display:flex;flex-direction:column;align-items:center}
+.plot-card{
+  display:flex;flex-direction:column;align-items:center;
+}
 .plot-card img{
-  width:100%;border-radius:8px;border:2px solid var(--border);
-  background:#0D1323;box-shadow:0 4px 20px rgba(0,0,0,.6);
+  width:100%;
+  border-radius:8px;border:2px solid var(--border);
+  background:#0D1323;
+  box-shadow:0 4px 20px rgba(0,0,0,.6);
 }
 .plot-card figcaption{
   margin-top:.55rem;font-size:.83rem;color:var(--soft);
@@ -181,14 +194,13 @@ dialog{
 /* ── HOVER INFO CARD ─────────────────────────── */
 .info-card{
   position:absolute;
-  top:12rem;                 /* your latest offsets           */
+  top:12rem;
   left:45%;
   transform:translateX(-50%);
   z-index:3;
 
-  /* NEW COLOURS */
   background:#ffca91;        /* orange card backdrop          */
-  color:var(--accent);       /* sky-blue text everywhere      */
+  color:#0D1323;             /* dark-blue text everywhere     */
 
   border:1px solid rgba(255,255,255,.12);
   border-radius:var(--radius);
@@ -203,8 +215,8 @@ dialog{
 .info-card th,
 .info-card td{
   border-bottom:1px solid rgba(0,0,0,.15);
+  color:inherit;             /* inherit dark-blue              */
 }
-
 
 .info-card.hidden{display:none}
 
@@ -213,16 +225,7 @@ dialog{
   font-weight:600;
   font-size:1rem;
   margin-bottom:.4rem;
-}
-
-.info-card table{
-  width:100%; border-collapse:collapse;
-}
-.info-card:hover,
-.info-card:hover th,
-.info-card:hover td,
-.info-card:hover .title{
-  color:#0D1323;        /* dark-blue like the page background */
+  color:inherit;             /* inherit dark-blue              */
 }
 
 
